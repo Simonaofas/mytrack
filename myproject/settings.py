@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -37,16 +38,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'allauth',
-    'allauth.account',
+    'mytrack',
+    'accounts',
+     #'allauth',
+    #'allauth.account',
     #'allauth.socialaccount',
-    'mytrack'
-
 ]
 
 # Allauth Settings
 #SITE_ID = 1
-
 #ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 #ACCOUNT_UNIQUE_EMAIL = True
 #ACCOUNT_USERNAME_REQUIRED = False
@@ -69,7 +69,9 @@ ROOT_URLCONF = 'myproject.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / "templates"],
+        'DIRS':[
+            os.path.join(BASE_DIR, "templates")
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -82,10 +84,10 @@ TEMPLATES = [
     },
 ]
 
-AUTHENTICATION_BACKENDS=[
-'django.template.context_processors.request',
-'allauth.account.auth_backends.AuthenticationBackend'
-]
+# AUTHENTICATION_BACKENDS=[
+# 'django.template.context_processors.request',
+# 'allauth.account.auth_backends.AuthenticationBackend'
+# ]
 
 WSGI_APPLICATION = 'myproject.wsgi.application'
 
@@ -146,4 +148,5 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-LOGIN_REDIRECT_URL = "/"  # new
+LOGIN_REDIRECT_URL = "home"  
+LOGOUT_REDIRECT_URL = "home" 
