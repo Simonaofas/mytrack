@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'mytrack',
     'accounts',
-     #'allauth',
+    #'allauth',
     #'allauth.account',
     #'allauth.socialaccount',
 ]
@@ -126,7 +126,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-AUTH_USER_MODEL='mytrack.CustomUser'
+AUTH_USER_MODEL='accounts.CustomUser'
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
