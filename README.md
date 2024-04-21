@@ -66,7 +66,7 @@ Geocoding API
 
 ## Usage
 
-1. Access the application at [http:// http://127.0.0.1:8000.
+1. Access the application at http://127.0.0.1:8000.
 2. SignUp for new account and Signin.
 3. Create Your Profile and Update for Existing user Changes.
 4. Enter Your routes adress to Navigate from origin to the  destinations.
