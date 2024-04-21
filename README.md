@@ -25,7 +25,7 @@ This web application is designed to track individuals in real-time during emerge
 
 1. Clone the repository:
    ```zsh
-   git clone https://github.com/your/repository.git
+   git clone https://github.com/Simonaofas/mytrack.git
    ```
 
 2. Navigate to the project directory:
