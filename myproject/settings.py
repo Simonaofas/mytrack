@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
     'mytrack',
     'accounts',
     #'allauth',
@@ -70,7 +71,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS':[
-            os.path.join(BASE_DIR, "templates")
+             "templates"
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -126,7 +127,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-AUTH_USER_MODEL='accounts.CustomUser'
+# AUTH_USER_MODEL='accounts.User'
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
@@ -142,11 +143,35 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static')
+]
+
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static_cdn')
+
+
+GOOGLE_API_KEY = "AIzaSyDvz7YTiG13up6Qycs9imo5D8l9b5Duwz0"
+
+RECAPTCHA_PUBLIC_KEY = "6Ld-Y70pAAAAAIt04J0k5RSzxhFX6TvADQPbhHsO"
+
+RECAPTCHA_PRIVATE_KEY = "6Ld-Y70pAAAAAGC_SsrdSeVX0DPr7i43DwShse_m"
+
+
+
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-LOGIN_REDIRECT_URL = "home"  
-LOGOUT_REDIRECT_URL = "home" 
+
+LOGIN_URL = "accounts:sign-in"
+LOGIN_REDIRECT_URL = "accounts:account"
+LOGOUT_REDIRECT_URL = "accounts:sign-in"
+BASE_COUNTRY = "CA"
+ 
+
+EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
+EMAIL_FILE_PATH = BASE_DIR / "sent_emails"
+

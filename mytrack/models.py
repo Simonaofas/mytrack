@@ -1,12 +1,12 @@
 
 from django.db import models
-from django.contrib.auth.models import AbstractUser
+# from django.contrib.auth.models import AbstractUser
 
-class CustomUser(AbstractUser):
-    pass
+# class CustomUser(AbstractUser):
+#     pass
 
-class EmergencyAlert(models.Model):
-    pass
+# class EmergencyAlert(models.Model):
+#     pass
 
 
 

@@ -1,34 +1,62 @@
-from django.shortcuts import render,redirect
-from .models import EmergencyAlert
-from django.contrib import messages
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth import authenticate, login
+from django.shortcuts import render, redirect, reverse
+from django.conf import settings
 
-# Create your views here
-def create_emergency_alert(request):
-    if request.method == 'POST':
-        user = request.user
-        message = request.POST.get('emergency_message')
-        EmergencyAlert.objects.create(request,user=user, message=message)
-        # Additional logic or redirection as needed
+from myproject.mixins import Directions
+'''
+Basic view for routing 
+'''
+def route(request):
 
-    return render(request,'create_emergency_alert.html')
+	context = {
+	"google_api_key": settings.GOOGLE_API_KEY,
+	"base_country": settings.BASE_COUNTRY}
+	return render(request, 'main/route.html', context)
 
 
-def custom_login(request):
-    if request.method == 'POST':
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        user = authenticate(request,username=username, password=password)
+'''
+Basic view for displaying a map 
+'''
+def map(request):
 
-        if user is not None:
-            login(request,user)
-            return redirect('dashboard')  # Replace 'dashboard' with your desired dashboard page name
-        else:
-            messages.error(request,'Invalid username or password.')
+	lat_a = request.GET.get("lat_a", None)
+	long_a = request.GET.get("long_a", None)
+	lat_b = request.GET.get("lat_b", None)
+	long_b = request.GET.get("long_b", None)
+	lat_c = request.GET.get("lat_c", None)
+	long_c = request.GET.get("long_c", None)
+	lat_d = request.GET.get("lat_d", None)
+	long_d = request.GET.get("long_d", None)
 
-    return render(request, 'login.html')
 
-@login_required
-def dashboard(request):
-    return render(request,'dashboard.html')
+	#only call API if all 4 addresses are added
+	if lat_a and lat_b and lat_c and lat_d:
+		directions = Directions(
+			lat_a= lat_a,
+			long_a=long_a,
+			lat_b = lat_b,
+			long_b=long_b,
+			lat_c= lat_c,
+			long_c=long_c,
+			lat_d = lat_d,
+			long_d=long_d
+			)
+	else:
+		return redirect(reverse('mytrack:route'))
+
+	context = {
+	"google_api_key": settings.GOOGLE_API_KEY,
+	"base_country": settings.BASE_COUNTRY,
+	"lat_a": lat_a,
+	"long_a": long_a,
+	"lat_b": lat_b,
+	"long_b": long_b,
+	"lat_c": lat_c,
+	"long_c": long_c,
+	"lat_d": lat_d,
+	"long_d": long_d,
+	"origin": f'{lat_a}, {long_a}',
+	"destination": f'{lat_b}, {long_b}',
+	"directions": directions,
+
+	}
+	return render(request, 'main/map.html', context)
